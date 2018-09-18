@@ -1,4 +1,4 @@
-FROM golang:lastest
+FROM golang
 
 LABEL maintainer="wuxiaojian<wuxiaojian@focusteach.com>"
 
