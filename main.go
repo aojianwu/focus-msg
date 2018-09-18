@@ -63,5 +63,7 @@ func main() {
 			}
 		}()
 	})
+
+	log.Printf("listen addr:%v", httpAddr)
 	log.Fatal(http.ListenAndServe(httpAddr, nil))
 }
