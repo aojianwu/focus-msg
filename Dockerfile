@@ -2,7 +2,7 @@ FROM golang:lastest
 
 LABEL maintainer="wuxiaojian<wuxiaojian@focusteach.com>"
 
-ENV HTTP_PORT 443
+ENV WS_ADDR "0.0.0.0:443"
 
 RUN go get github.com/cespare/reflex github.com/aojianwu/focus-msg
 

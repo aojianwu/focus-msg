@@ -1,16 +1,16 @@
 package main
 
 import (
-	"flag"
 	"log"
 	"net/http"
+	"os"
 	"sync"
 
 	"github.com/gorilla/websocket"
 )
 
 var (
-	httpAddr = flag.String("addr", "0.0.0.0:443", "http endpoint to listen")
+	httpAddr string
 )
 
 var ws = websocket.Upgrader{
@@ -26,8 +26,14 @@ var (
 	connections []*websocket.Conn
 )
 
+func init() {
+	httpAddr = os.Getenv("WS_ADDR")
+	if httpAddr == "" {
+		httpAddr = "0.0.0.0:443"
+	}
+}
+
 func main() {
-	flag.Parse()
 	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("WS:", r.RemoteAddr)
 		h := http.Header{}
@@ -57,5 +63,5 @@ func main() {
 			}
 		}()
 	})
-	log.Fatal(http.ListenAndServe(*httpAddr, nil))
+	log.Fatal(http.ListenAndServe(httpAddr, nil))
 }
